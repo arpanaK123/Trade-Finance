@@ -1,0 +1,63 @@
+<div class="login-form">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="header">Login</h4>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value, loginForm.reset())">
+        <div class="form-group">
+          <label class="label" for="email">Email</label>
+          <input type="email"
+                 class="form-control"
+                 name="email"
+                 id="email"
+                 placeholder="Enter Email..."
+                 required
+                 [(ngModel)]="signInForm.email"
+                 #email="ngModel"/>
+          <div *ngIf="email.errors && (email.dirty || email.touched)"
+               class="validation">
+            <small [hidden]="!email.errors.required" class="text-danger">
+              Email is required.
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="label" for="password">Password</label>
+          <input type="password"
+                 class="form-control"
+                 name="password"
+                 id="password"
+                 placeholder="Enter Password..."
+                 required
+                 [(ngModel)]="signInForm.password"
+                 #password="ngModel"/>
+          <div *ngIf="password.errors && (password.dirty || password.touched)"
+               class="validation">
+            <small [hidden]="!password.errors.required" class="text-danger">
+              Password is required.
+            </small>
+          </div>
+        </div>
+        <div class="btn-toolbar">
+          <button type="submit"
+                  [disabled]="!loginForm.valid"
+                  class="btn btn-primary">LOGIN
+          </button>
+          <button type="button" [routerLink]="'/register'" class="btn btn-secondary">
+            SIGN UP
+          </button>
+          <div class="has-forget-password">
+            <a [routerLink]="'/forget-password'">Forget password</a>
+          </div>
+        </div>
+      </form>
+      <ng-container *ngIf="login$">
+        <div class="alert alert-success" role="alert" *ngIf="loggedInMessage">
+          <strong>Well done!</strong> {{loggedInMessage}}
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="loggedInError">
+          <strong>Oh snap! </strong>{{loggedInError}}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

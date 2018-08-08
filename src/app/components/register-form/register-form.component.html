@@ -1,0 +1,86 @@
+<div class="register-form">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="header">Registration Form</h4>
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm.value, registerForm.reset())">
+        <div class="form-group">
+          <label class="label" for="name">Name</label>
+          <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name..." required [(ngModel)]="registerData.name"
+            #name="ngModel" />
+          <div *ngIf="name.errors && (email.dirty || email.touched)" class="validation">
+            <small [hidden]="!name.errors.required" class="text-danger">
+              Name is required.
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="label" for="email">Email</label>
+          <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email..." [pattern]="'^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'"
+            required [(ngModel)]="registerData.email" #email="ngModel" />
+          <div *ngIf="email.errors && (email.dirty || email.touched)" class="validation">
+            <small [hidden]="!email.errors.required" class="text-danger">
+              Email is required.
+            </small>
+            <small [hidden]="!email.errors.pattern" class="text-danger">
+              Email not valid.
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="label" for="password">Password</label>
+          <input type="password" class="form-control" name="password" id="password" minlength="6" maxlength="16" placeholder="Enter Password..."
+            required [(ngModel)]="registerData.password" #password="ngModel" />
+          <div *ngIf="password.errors && (password.dirty || password.touched)" class="validation">
+            <small [hidden]="!password.errors.required" class="text-danger">
+              Password is required.
+            </small>
+            <small [hidden]="!password.errors.minlength" class="text-danger">
+              Password should at least 6 characters
+            </small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="city" class="modal-tags">City</label>
+            <select class="form-control" id="city" name="city" [(ngModel)]="registerData.city" required #city="ngModel">
+              <option value="patna">Patna</option>
+              <option value="nashik">Nashik</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="banglore">Banglore</option>
+            </select>
+            <div *ngIf="city.errors && (city.dirty || city.touched)" class="validation">
+              <small [hidden]="!city.errors.required" class="text-danger">
+                Please select city.
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="role" class="modal-tags">Role</label>
+            <select class="form-control" id="role" name="role" [(ngModel)]="registerData.role" required #role="ngModel">
+              <option value="omporter">Importer</option>
+              <option value="exporter">Exporter</option>
+              <option value="custom">Custom</option>
+            </select>
+            <div *ngIf="role.errors && (role.dirty || role.touched)" class="validation">
+              <small [hidden]="!role.errors.required" class="text-danger">
+                Please select role.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="btn-toolbar">
+          <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Register
+          </button>
+        </div>
+      </form>
+      <ng-container *ngIf="register$">
+        <div class="alert alert-success" role="alert" *ngIf="successMessage">
+          <strong>Registration Successfully!</strong> {{successMessage}}
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          <strong>Something Went Wrong! </strong>{{errorMessage}}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

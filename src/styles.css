@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+html {
+  height: 100%;
+}
+body {
+  position: relative;
+  height: 100%;
+}
+label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7F8FA4;
+}
